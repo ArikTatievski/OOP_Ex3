@@ -9,6 +9,7 @@ class DiGraph(GraphInterface):
         self._nodeSize = 0
         self._edgeSize = 0
         self._MCsize = 0
+        self.arik =0
 
 
     def v_size(self) -> int:
