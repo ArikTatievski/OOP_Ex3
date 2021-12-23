@@ -6,6 +6,7 @@ class DiGraph(GraphInterface):
     def __init__(self):
         self._nodes = {}
         self._edges = {}
+        self._revedges = {}
         self._degree = {}
         self._nodeSize = 0
         self._edgeSize = 0
@@ -37,7 +38,11 @@ class DiGraph(GraphInterface):
             ans[e.get_dest()] = e.get_weight()
         return ans
 
-
+    def all_out_rev_edges_of_node(self, id1: int) -> dict:
+        ans ={}
+        for e in self._revedges[id1]:
+            ans[e.get_dest()] = e.get_weight()
+        return ans
 
 
     def add_edge(self, id1: int, id2: int, weight: float) -> bool:
@@ -50,7 +55,9 @@ class DiGraph(GraphInterface):
                 return False
 
         curr = Edge(id1,id2,weight)
+        revcurr = Edge(id2,id1,weight)
         self._edges[id1].append(curr)
+        self._revedges[id2].append(revcurr)
         self._degree[id1].append(curr)
         self._degree[id2].append(curr)
         self._edgeSize=self._edgeSize+1
@@ -63,6 +70,7 @@ class DiGraph(GraphInterface):
             return False
         self._nodes[node_id] = curr
         self._edges[node_id] = []
+        self._revedges[node_id] = []
         self._degree[node_id] = []
         self._nodeSize = self._nodeSize+1
         self._MCsize = self._MCsize + 1
@@ -75,6 +83,8 @@ class DiGraph(GraphInterface):
         while(len(removeList)>0):
             e = removeList.pop(0)
             self.remove_edge(e.get_src(),e.get_dest())
+        self._nodes.pop(node_id)
+        self._edges.pop(node_id)
         self._nodeSize = self._nodeSize - 1
         self._MCsize = self._MCsize + 1
         return True
@@ -87,6 +97,11 @@ class DiGraph(GraphInterface):
         for e in self._degree[node_id2]:
             if(e.get_src() == node_id1):
                 self._degree[node_id2].remove(e)
+                break
+
+        for e in self._revedges[node_id2]:
+            if(e.get_dest() == node_id1):
+                self._revedges[node_id2].remove[e]
                 break
 
         for e in self._edges[node_id1]:
