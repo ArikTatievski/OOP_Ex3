@@ -1,7 +1,11 @@
+import random
 class Node:
-    def __init__(self, id: int, pos: tuple):
+    def __init__(self, id: int, pos: tuple = None):
         self._id = id
-        self._pos = pos
+        if pos is not None:
+            self._pos = pos
+        else:
+            self._pos = (random.randint(0, 100),random.randint(0, 100))
         self._father = None
         self._tag = 0
         self._weight = 0

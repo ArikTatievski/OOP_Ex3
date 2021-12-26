@@ -101,7 +101,7 @@ class DiGraph(GraphInterface):
 
         for e in self._revedges[node_id2]:
             if(e.get_dest() == node_id1):
-                self._revedges[node_id2].remove[e]
+                self._revedges[node_id2].remove(e)
                 break
 
         for e in self._edges[node_id1]:

@@ -1,3 +1,4 @@
+import json
 import sys
 
 from GraphAlgoInterface import *
@@ -5,6 +6,7 @@ from DiGraph import *
 from queue import PriorityQueue
 from Node import *
 from Edge import *
+from matplotlib import pyplot as plt
 
 
 class GraphAlgo(GraphAlgoInterface):
@@ -15,13 +17,54 @@ class GraphAlgo(GraphAlgoInterface):
             self._graph = DiGraph()
 
     def get_graph(self) -> GraphInterface:
-        return self
+        return self._graph
 
     def load_from_json(self, file_name: str) -> bool:
-        pass
+        g = DiGraph()
+        with open(file_name, 'r') as fp:
+            obj = json.load(fp)
+            listnodes = obj['Nodes']
+            for i in range(len(listnodes)):
+                node_id = int(listnodes[i].get('id'))
+                if(listnodes[i].get('pos')!=None):
+                    node_pos = "" + (listnodes[i].get('pos'))
+                    pos = node_pos.split(",")
+                    x = float(pos[0])
+                    y = float(pos[1])
+                    g.add_node(node_id, (x, y, 0))
+                else:
+                    g.add_node(node_id)
+            listedges = obj['Edges']
+            for i in range(len(listedges)):
+                src = int(listedges[i].get('src'))
+                dest = int(listedges[i].get('dest'))
+                weight = float(listedges[i].get('w'))
+                g.add_edge(src, dest, weight)
+
+            self._graph = g
+
+        return True
 
     def save_to_json(self, file_name: str) -> bool:
-        pass
+        with open(file_name,'w') as fp:
+            data ={}
+            nodedict=self._graph.get_all_v()
+            data['Edges']=[]
+            for i in nodedict:
+                edgefromdict=self._graph.all_out_edges_of_node(nodedict[i].get_id())
+                for e in edgefromdict:
+                    dictedge={"src" : nodedict[i].get_id(),
+                              "w" : edgefromdict[e],
+                              "dest" : nodedict[e].get_id()}
+                    data['Edges'].append(dictedge)
+            data['Nodes']=[]
+            for i in nodedict:
+                dict={"pos" : ','.join(map(str,nodedict[i].get_pos())),
+                    "src" :nodedict[i].get_id()}
+                data['Nodes'].append(dict)
+            json.dump(data,fp,indent=2)
+
+        return True
 
     def _relax(self, e: Edge) -> None:
         src = e.get_src()
@@ -29,10 +72,14 @@ class GraphAlgo(GraphAlgoInterface):
         nodedict = self._graph.get_all_v()
         vs = nodedict[src]
         vd = nodedict[dest]
-        if (vd.get_weigth() > vs.get_weigth() + e.get_weight()):
-            new_weight = vs.get_weigth() + e.get_weight()
+        vsw = vs.get_weight()
+        vdw = vd.get_weight()
+        ew = e.get_weight()
+        if (vdw > vsw + ew):
+            new_weight = vsw + ew
             vd.set_weight(new_weight)
             vd.set_father(vs)
+            return
 
     def _dijkstra(self, id: int) -> None:
         nodedict = self._graph.get_all_v()
@@ -53,10 +100,20 @@ class GraphAlgo(GraphAlgoInterface):
 
         while not pq.empty():
             temp = pq.get()
-            neighbors = self._graph.all_out_edges_of_node()
+            neighbors = self._graph.all_out_edges_of_node(temp.get_id())
             for x in neighbors:
                 edge = Edge(temp.get_id(), x, neighbors[x])
                 self._relax(edge)
+
+            helpingpq = PriorityQueue()
+
+            while not pq.empty():
+                item = pq.get()
+                helpingpq.put(item)
+
+            while not helpingpq.empty():
+                item = helpingpq.get()
+                pq.put(item)
 
     def shortest_path(self, id1: int, id2: int) -> (float, list):
         if (id1 == id2):
@@ -68,10 +125,9 @@ class GraphAlgo(GraphAlgoInterface):
             n = nodeList[id2]
             if (n.get_weight() == sys.maxsize):
                 return (sys.maxsize, [])
-            totalWeight = 0
+            totalWeight = n.get_weight()
             while (n != None):
-                totalWeight = totalWeight + n.get_weight()
-                ans.append(0, n)
+                ans.insert(0,n.get_id())
                 n = n.get_father()
             return (totalWeight, ans)
 
@@ -127,9 +183,6 @@ class GraphAlgo(GraphAlgoInterface):
                 queue.append(curr)
         return
 
-    def plot_graph(self) -> None:
-        pass
-
     def TSP(self, node_lst: List[int]) -> (List[int], float):
         self._dijkstra(node_lst[0])
         allNodes = self._graph.get_all_v()
@@ -143,10 +196,23 @@ class GraphAlgo(GraphAlgoInterface):
         while (i < lstlen - 1):
             curr = self.shortest_path(node_lst[i], node_lst[i + 1])
             totalWeight = totalWeight + curr[0]
-            TSPlist.append(curr[1])
-        for j in TSPlist:
-            TSPlist[j] = TSPlist[j].get_id()
-        return (TSPlist, totalWeight)
+            for x in curr[1]:
+                TSPlist.append(x)
+            i = i + 1
+        finalTSP = []
+        i = 0
+        while(i<len(TSPlist)):
+            if (i==len(TSPlist) -1 ):
+                finalTSP.append((TSPlist[i]))
+                break
+            if (TSPlist[i] == TSPlist[i+1]):
+                finalTSP.append(TSPlist[i])
+                i=i+2
+            else:
+                finalTSP.append(TSPlist[i])
+                i=i+1
+
+        return (finalTSP, totalWeight)
 
     def centerPoint(self) -> (int, float):
         if (self._isConnected() == False):
@@ -160,10 +226,36 @@ class GraphAlgo(GraphAlgoInterface):
             n_id = 0
             w = 0
             for j in allNodes:
-                if [allNodes[j].get_weight() > w]:
-                    n_id = j
-                    w = allNodes[j].get_weight()
+                nodeValue = allNodes[j].get_weight()
+                if (nodeValue > w):
+                    w = nodeValue
             if (w < ansWeight):
                 ansWeight = w
-                ans = allNodes[n_id]
+                ans = allNodes[i]
         return (ans.get_id(), ansWeight)
+
+    def plot_graph(self) -> None:
+        nodeList = self._graph.get_all_v()
+        for i in nodeList:
+            node = nodeList[i]
+            x= node.get_pos()[0]
+            y=node.get_pos()[1]
+            id= node.get_id()
+            plt.plot(x,y,markersize=5,marker = "o",color = "black")
+            plt.text(x,y,id,color="red",fontsize=10,fontweight='bold',fontstyle='oblique')
+
+        for i in nodeList:
+            outEdges = self._graph.all_out_edges_of_node(i)
+            nodesrc = nodeList[i]
+            x = nodesrc.get_pos()[0]
+            y = nodesrc.get_pos()[1]
+            for e in outEdges:
+                nodedest = nodeList[e]
+                dx = nodedest.get_pos()[0]
+                dy = nodedest.get_pos()[1]
+                plt.annotate("", xy=(x,y), xytext=(dx,dy), arrowprops=dict(arrowstyle="<-"))
+
+        plt.xlabel("X axis")
+        plt.ylabel("Y axis")
+        plt.title("Ciiiiiiiiii graph")
+        plt.show()

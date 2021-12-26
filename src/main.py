@@ -18,10 +18,11 @@ def check():
     (7, 6.806805834715163)
     ([1,3,4,2],3.5)
     """
-    check0()
-    check1()
-    check2()
-
+    #check0()
+    #check1()
+    #check2()
+    #check3()
+    #checkcent()
 
 def check0():
     """
@@ -103,6 +104,25 @@ def check3():
     print(g_algo.TSP([1, 2, 4]))
     g_algo.plot_graph()
 
+def checkcent():
+    g0 = GraphAlgo()
+    g0.load_from_json('../data/A0.json')
+    print(g0.centerPoint())
+    g1 = GraphAlgo()
+    g1.load_from_json('../data/A1.json')
+    print(g1.centerPoint())
+    g2 = GraphAlgo()
+    g2.load_from_json('../data/A2.json')
+    print(g2.centerPoint())
+    g3 = GraphAlgo()
+    g3.load_from_json('../data/A3.json')
+    print(g3.centerPoint())
+    g4 = GraphAlgo()
+    g4.load_from_json('../data/A4.json')
+    print(g4.centerPoint())
+    g5 = GraphAlgo()
+    g5.load_from_json('../data/A5.json')
+    print(g5.centerPoint())
 
 if __name__ == '__main__':
     check()
