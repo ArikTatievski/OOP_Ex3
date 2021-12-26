@@ -39,35 +39,35 @@ A0 - 11 Nodes
 
 Language | shortestPath | center | TSP
 --- | --- | --- | --- 
-Java|0.000|0.063|0.016
+Java|0|0.015|0
 Python|0|0.156|0
 
 A1 - 17 Nodes
 
 Language | shortestPath | center | TSP
 --- | --- | --- | --- 
-Java|0.000|0.063|0.016
+Java|0|0|0
 Python|0|0.031|0
 
 A2 - 31 Nodes
 
 Language | shortestPath | center | TSP
 --- | --- | --- | --- 
-Java|0.000|0.063|0.016
+Java|0.016|0.016|0
 Python|0.015|0.140|0.031
 
 A3 - 49 Nodes
 
 Language | shortestPath | center | TSP
 --- | --- | --- | --- 
-Java|0.000|0.063|0.016
+Java|0.015|0.032|0.031
 Python|0.015|0.578|0.031
 
 A4 - 40 Nodes
 
 Language | shortestPath | center | TSP
 --- | --- | --- | --- 
-Java|0.000|0.063|0.016
+Java|0.015|0.032|0.031
 Python|0|0.312|0.031
 
 A5 - 48 Nodes
