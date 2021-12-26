@@ -22,9 +22,10 @@ How to use our project:
 Please run the jar file with the following command "java -jar Ex2.jar Filename.json and our GUI will apear.
 
 Comparing to java(Taking A5 graph as an example):
-||shortest path|center|TSP
-|Java|0.000|0.063|0.016
-|Python|0.015|0.5310|0.031
+Language | shortestPath | center | TSP
+--- | --- | --- | --- 
+Java|0.000|0.063|0.016
+Python|0.015|0.5310|0.031
 We can obviously see Java runing time is way faster than Python.
 
 All the outputs of our functions were checked and verified as true answers
