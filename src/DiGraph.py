@@ -11,6 +11,14 @@ class DiGraph(GraphInterface):
         self._nodeSize = 0
         self._edgeSize = 0
         self._MCsize = 0
+        self._isConnected = False
+
+    def setconnectivity(self):
+        self._isConnected = True
+        return
+
+    def connectivity(self):
+        return self._isConnected
 
     def v_size(self) -> int:
         return self._nodeSize
@@ -74,6 +82,7 @@ class DiGraph(GraphInterface):
         self._degree[node_id] = []
         self._nodeSize = self._nodeSize+1
         self._MCsize = self._MCsize + 1
+        self.isConnected = False
         return True
 
     def remove_node(self, node_id: int) -> bool:
@@ -87,6 +96,7 @@ class DiGraph(GraphInterface):
         self._edges.pop(node_id)
         self._nodeSize = self._nodeSize - 1
         self._MCsize = self._MCsize + 1
+        self.isConnected = False
         return True
 
     def remove_edge(self, node_id1: int, node_id2: int) -> bool:
@@ -109,5 +119,6 @@ class DiGraph(GraphInterface):
                 self._edges[node_id1].remove(e)
                 self._edgeSize = self._edgeSize-1
                 self._MCsize = self._MCsize + 1
+                self.isConnected = False
                 return True
         return False

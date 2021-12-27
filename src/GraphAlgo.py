@@ -124,7 +124,7 @@ class GraphAlgo(GraphAlgoInterface):
             nodeList = self._graph.get_all_v()
             n = nodeList[id2]
             if (n.get_weight() == sys.maxsize):
-                return (sys.maxsize, [])
+                return (float('inf'), [])
             totalWeight = n.get_weight()
             while (n != None):
                 ans.insert(0,n.get_id())
@@ -132,6 +132,8 @@ class GraphAlgo(GraphAlgoInterface):
             return (totalWeight, ans)
 
     def _isConnected(self) -> bool:
+        if (self._graph.connectivity() == True):
+            return True
         allNodes = self._graph.get_all_v()
         n: Node = None
         for i in allNodes:
@@ -145,6 +147,7 @@ class GraphAlgo(GraphAlgoInterface):
         for i in allNodes:
             if (allNodes[i].get_tag() != 1):
                 return False
+        self._graph.setconnectivity()
         return True
 
     def BFS(self, n: Node) -> None:
@@ -188,7 +191,7 @@ class GraphAlgo(GraphAlgoInterface):
         allNodes = self._graph.get_all_v()
         for i in node_lst:
             if (allNodes[i].get_weight() == sys.maxsize):
-                return ([], 0)
+                return ([], float('inf'))
         totalWeight = 0
         TSPlist = []
         lstlen = len(node_lst)
@@ -216,7 +219,7 @@ class GraphAlgo(GraphAlgoInterface):
 
     def centerPoint(self) -> (int, float):
         if (self._isConnected() == False):
-            return (-1, 0)
+            return (None, float('inf'))
         ans: Node = None
         ansWeight: float = sys.maxsize
         allNodes = self._graph.get_all_v()

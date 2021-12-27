@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="60a690ec-eed6-4c38-ae20-bf102d7c8da2" name="Changes" comment="">
+    <list default="true" id="60a690ec-eed6-4c38-ae20-bf102d7c8da2" name="Changes" comment="fourth commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DiGraph.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/DiGraph.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GraphAlgo.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/GraphAlgo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Node.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/Node.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -26,6 +25,14 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="ProjectId" id="22ZhBiLiKcAw0OAcNVOenI0YN3j" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -38,7 +45,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/test_GraphAlgo.py" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Debugger" />
   </component>
-  <component name="RunManager" selected="Python.main (1)">
+  <component name="RunManager" selected="Python.test_GraphAlgo">
     <configuration name="main (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -213,8 +220,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main (1)" />
         <item itemvalue="Python.test_GraphAlgo" />
+        <item itemvalue="Python.main (1)" />
         <item itemvalue="Python.test_DiGraph" />
         <item itemvalue="Python.main" />
         <item itemvalue="Python tests.Python tests for test_DiGraph.TestDiGraph.test_e_size" />
@@ -230,7 +237,31 @@
       <option name="presentableId" value="Default" />
       <updated>1640050882477</updated>
     </task>
+    <task id="LOCAL-00001" summary="fourth commit">
+      <created>1640560812975</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1640560812975</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="fourth commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="fourth commit" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -240,7 +271,17 @@
           <line>41</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/GraphAlgo.py</url>
+          <line>149</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="self" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>
