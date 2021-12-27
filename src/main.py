@@ -24,7 +24,7 @@ def check():
     #check2()
     #check3()
     #checkcent()
-    #timecheck()
+    timecheck()
 
 def check0():
     """
@@ -130,20 +130,6 @@ def timecheck():
     g = GraphAlgo()
     t = time.time()
     g.load_from_json('../data/A5.json')
-    print(f"loading time: {time.time() - t}")
-    t = time.time()
-    g.get_graph().add_node(1000,(100,100))
-    print(f"addNode time: {time.time() - t}")
-    t=time.time()
-    g.get_graph().add_edge(0,1000,10)
-    print(f"addEdge time: {time.time() - t}")
-    t=time.time()
-    g.get_graph().remove_edge(0,1000)
-    print(f"removeEdge time: {time.time() - t}")
-    t=time.time()
-    g.get_graph().remove_node(1000)
-    print(f"removeNode time: {time.time() - t}")
-    t=time.time()
     g.shortest_path(0,1)
     print(f"shortestPath time: {time.time() - t}")
     t=time.time()
@@ -152,6 +138,7 @@ def timecheck():
     t=time.time()
     g.TSP([0,1,2])
     print(f"TSP time: {time.time() - t}")
+
 
 
 
