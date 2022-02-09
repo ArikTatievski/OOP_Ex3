@@ -1,7 +1,8 @@
 # Authors:
 
-Arik Tatievski, 208997056
-Roi Meshulam, 315635649
+Arik Tatievski
+
+Roi Meshulam
 
 # What is this project?
 
